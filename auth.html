@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlanWith Login</title>
+  <link rel="stylesheet" href="auth-common.css" />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="signup-terms.css" />
+  <link rel="stylesheet" href="signup-verify.css" />
+  <link rel="stylesheet" href="signup-verify-modal.css" />
+  <link rel="stylesheet" href="signup-profile.css" />
+</head>
+<body>
+  <nav class="screen-tabs" aria-label="화면 전환">
+    <button type="button" data-screen="login" class="active">로그인</button>
+    <button type="button" data-screen="signup1">약관</button>
+    <button type="button" data-screen="signup2">인증</button>
+    <button type="button" data-screen="signup3">인증팝업</button>
+    <button type="button" data-screen="signup4">프로필</button>
+  </nav>
+
+  <div class="stage">
+    <div class="background-photo" aria-hidden="true"></div>
+
+    <header class="header">
+      <a href="/" aria-label="홈으로">
+        <img class="logo" src="assets/logo-planwith.png" alt="PLAN &amp; WITH Logo - Travel and Planning" width="80" height="80" />
+      </a>
+      <div class="header-cta-wrap">
+        <a class="cta-travel" href="/auth.html">여행 하기</a>
+      </div>
+      <nav class="nav" aria-label="비로그인 메뉴">
+        <div class="active-indicator" aria-hidden="true"></div>
+        <a class="nav-item" href="/">홈</a>
+        <button class="nav-item" type="button">AI 일정생성</button>
+        <button class="nav-item" type="button">커뮤니티 <i class="dropdown-arrow"></i></button>
+        <button class="nav-item" type="button">검색</button>
+      </nav>
+    </header>
+
+    <!-- 로그인 -->
+    <section class="screen active" id="login">
+      <div class="login-hero">
+        <div class="boarding-pass">BOARDING PASS</div>
+        <h1>여행을 시작하는 순간</h1>
+        <p class="sub">AI 일정 생성 · 여행 기록 · 여행 스토리 · 함께하는 모임</p>
+      </div>
+      <form class="login-form" id="form-login" novalidate>
+        <div class="field">
+          <div class="field-label">이메일</div>
+          <input class="input-destination" name="email" type="email" placeholder="example@planwith.you" data-required="이메일을 입력해주세요" />
+          <p class="field-error" data-error-for="email"></p>
+        </div>
+        <div class="field">
+          <div class="field-label">비밀번호</div>
+          <input class="input-destination" name="password" type="password" placeholder="********" data-required="비밀번호를 입력해주세요" />
+          <p class="field-error" data-error-for="password"></p>
+          <label class="remember"><input class="check-box" type="checkbox" /> 아이디 저장</label>
+        </div>
+        <p class="form-error" id="login-form-error"></p>
+        <button class="btn-board" type="submit">탑승 하기</button>
+      </form>
+      <div class="easy-login">
+        <div class="divider-row"><div class="line"></div><span>또는 간편 로그인</span><div class="line"></div></div>
+        <div class="social-row">
+          <button class="social naver" type="button">N</button>
+          <button class="social kakao" type="button">톡</button>
+          <button class="social google" type="button">G</button>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="find-row">
+          <button class="find-link" type="button">아이디 찾기</button>
+          <button class="find-link" type="button">비밀번호 찾기</button>
+        </div>
+        <div class="signup-row">
+          <span>아직 회원이 아니신가요?</span>
+          <button type="button" data-go="signup1">회원가입</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 약관 -->
+    <section class="screen" id="signup1">
+      <div class="signup1">
+        <div class="head">
+          <div class="airport-line">
+            <span class="airport-icon on"></span><span class="dash"></span>
+            <span class="airport-icon"></span><span class="dash"></span>
+            <span class="airport-icon"></span>
+          </div>
+          <div class="screen-title">약관 동의</div>
+          <div class="screen-sub">서비스 이용을 위해 아래 약관에 동의해주세요</div>
+        </div>
+        <form class="terms" id="form-signup1" novalidate>
+          <div class="term-all"><label><input class="check-box" type="checkbox" id="all" /> 전체선택</label></div>
+          <div id="terms-list"></div>
+          <div class="contact-pref">
+            <div class="pref-title">광고성 정보 수신 동의 (선택)</div>
+            <div class="pref-options">
+              <label><input class="check-box" type="checkbox" name="pref-email" /> E-mail</label>
+              <label><input class="check-box" type="checkbox" name="pref-sms" /> SMS</label>
+            </div>
+          </div>
+          <p class="form-error" id="signup1-form-error"></p>
+          <button class="btn-next" type="submit" style="margin-top:28px">다음</button>
+          <p class="login-hint">이미 계정이 있으신가요? <a data-go="login">로그인</a></p>
+        </form>
+      </div>
+
+      <!-- 약관 보기 팝업 (뒤로가기 없이 오버레이) -->
+      <div class="terms-modal" id="terms-modal" aria-hidden="true">
+        <div class="terms-modal__backdrop" data-terms-close></div>
+        <div class="terms-modal__card" role="dialog" aria-modal="true" aria-labelledby="terms-modal-title">
+          <h3 class="terms-modal__title" id="terms-modal-title">약관</h3>
+          <div class="terms-modal__body" id="terms-modal-body">불러오는 중…</div>
+          <div class="terms-modal__actions">
+            <button type="button" class="terms-modal__agree" id="terms-modal-agree">동의하기</button>
+          </div>
+          <div class="terms-modal__actions">
+            <button type="button" class="terms-modal__close" data-terms-close>닫기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 인증 -->
+    <section class="screen" id="signup2">
+      <div class="signup2">
+        <div class="head">
+          <div class="airport-line">
+            <span class="airport-icon on"></span><span class="dash on"></span>
+            <span class="airport-icon on"></span><span class="dash"></span>
+            <span class="airport-icon"></span>
+          </div>
+          <div class="screen-title">인증 절차</div>
+          <div class="screen-sub">안전한 서비스 이용을 위해 본인 인증을 진행해 주세요</div>
+        </div>
+        <form class="form" id="form-signup2" novalidate>
+          <div class="field">
+            <div class="field-label">이메일</div>
+            <div class="input-row">
+              <input class="input-destination auth" name="email" type="email" placeholder="이메일을 입력해주세요" data-required="이메일을 입력해주세요" />
+              <button class="btn-confirm primary" type="button" id="btn-send-code">인증</button>
+            </div>
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+          <div class="field">
+            <div class="field-label">인증번호</div>
+            <div class="input-row">
+              <input class="input-destination auth" name="code" type="text" placeholder="인증번호를 입력해주세요" data-required="인증번호를 입력해주세요" />
+              <button class="btn-confirm" type="button">확인</button>
+            </div>
+            <p class="field-error" data-error-for="code"></p>
+          </div>
+          <div class="field">
+            <div class="field-label">비밀번호</div>
+            <input class="input-destination wide" name="password" type="password" placeholder="영/대소문자,특수 문자 포함 8~20자로 입력하세요" data-required="비밀번호를 입력해주세요" />
+            <p class="field-error" data-error-for="password"></p>
+          </div>
+          <p class="form-error" id="signup2-form-error"></p>
+          <button class="btn-next" type="submit">다음</button>
+          <p class="login-hint">이미 계정이 있으신가요? <a data-go="login">로그인</a></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- 인증 팝업 -->
+    <section class="screen" id="signup3">
+      <div class="signup2">
+        <div class="head">
+          <div class="airport-line">
+            <span class="airport-icon on"></span><span class="dash on"></span>
+            <span class="airport-icon on"></span><span class="dash"></span>
+            <span class="airport-icon"></span>
+          </div>
+          <div class="screen-title">인증 절차</div>
+          <div class="screen-sub">안전한 서비스 이용을 위해 본인 인증을 진행해 주세요.</div>
+        </div>
+        <div class="form">
+          <div class="field">
+            <div class="field-label">이메일</div>
+            <div class="input-row">
+              <input class="input-destination auth is-filled" type="email" value="example@planwith.you" readonly />
+              <button class="btn-confirm primary" type="button">인증</button>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">인증번호</div>
+            <div class="input-row">
+              <input class="input-destination auth" type="text" placeholder="인증번호를 입력해주세요" />
+              <button class="btn-confirm" type="button">확인</button>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">비밀번호</div>
+            <input class="input-destination wide" type="password" placeholder="영/대소문자,특수 문자 포함 8~20자로 입력하세요" />
+          </div>
+          <button class="btn-next" type="button" data-go="signup2">다음</button>
+        </div>
+      </div>
+      <div class="modal-backdrop">
+        <div class="modal-card">
+          <div class="check-badge">✓</div>
+          <div class="title">인증 메일을 보냈습니다</div>
+          <div class="description">메일함에서 인증번호를 확인한 뒤 입력해 주세요</div>
+          <div class="actions-row">
+            <button class="btn-confirm primary" type="button" data-go="signup2" style="width:332px;background:#387BFF;color:#fff">확인</button>
+          </div>
+          <div class="hint">메일이 오지 않으면 스팸함을 확인해 주세요</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 프로필 (가입 준비) -->
+    <section class="screen" id="signup4">
+      <div class="signup3">
+        <div class="head">
+          <div class="airport-line">
+            <span class="airport-icon on"></span><span class="dash on"></span>
+            <span class="airport-icon on"></span><span class="dash on"></span>
+            <span class="airport-icon on"></span>
+          </div>
+          <div class="screen-title">비행 준비</div>
+          <div class="screen-sub">함께 떠날 프로필 정보를 입력하고 출발 준비를 마쳐주세요</div>
+        </div>
+        <div class="avatar-wrap">
+          <div class="avatar">
+            <img class="avatar-camera" id="avatar-preview" src="assets/icon-camera.png" alt="프로필 사진" />
+          </div>
+          <button class="camera-badge" type="button" id="btn-avatar" aria-label="프로필 사진 변경">
+            <img src="assets/icon-camera.png" alt="" />
+          </button>
+          <input type="file" id="avatar-file" accept="image/jpeg,image/png,image/webp" hidden />
+        </div>
+        <form class="form" id="form-signup4" novalidate>
+          <div class="field">
+            <div class="field-label">이메일</div>
+            <input class="input-destination wide" id="profile-email" name="email" type="email" readonly placeholder="인증된 이메일이 표시됩니다" />
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+          <div class="field">
+            <div class="field-label">닉네임 (10자 이내)</div>
+            <div class="input-row">
+              <input class="input-destination auth" name="nickname" type="text" maxlength="10" placeholder="닉네임을 입력해주세요" data-required="닉네임을 입력해주세요" />
+              <button class="btn-confirm" type="button">중복 확인</button>
+            </div>
+            <p class="field-error" data-error-for="nickname"></p>
+          </div>
+          <div class="field">
+            <div class="field-label">프로필 소개글 (20자 이내)</div>
+            <input class="input-destination wide" name="intro" type="text" maxlength="20" placeholder="나를 알리는 한줄 소개를 해주세요" data-required="소개글을 입력해주세요" />
+            <p class="field-error" data-error-for="intro"></p>
+          </div>
+          <p class="form-error" id="signup4-form-error"></p>
+          <button class="btn-next" type="submit">다음</button>
+          <p class="login-hint">이미 계정이 있으신가요? <a data-go="login">로그인</a></p>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { api, setAccessToken, getAccessToken } from "./auth-api.js";
+    import {
+      startGoogleLogin,
+      startNaverLogin,
+      startKakaoLogin,
+      finishSocialSignup,
+      loadSocialPending,
+      clearSocialPending,
+    } from "./social-auth.js";
+
+    const state = {
+      terms: [],
+      agreedTermIds: [],
+      email: "",
+      password: "",
+      emailVerified: false,
+      profileImage: null,
+      socialMode: false,
+      socialEmail: "",
+      socialNickname: "",
+    };
+
+    function enterSocialSignupMode(pending) {
+      state.socialMode = true;
+      state.socialEmail = pending?.email || "";
+      state.socialNickname = pending?.suggestedNickname || "";
+      state.password = "";
+      state.emailVerified = true;
+      state.email = state.socialEmail;
+      const profileEmail = document.getElementById("profile-email");
+      if (profileEmail) {
+        profileEmail.value = state.socialEmail;
+        syncFilled(profileEmail);
+      }
+      const nick = document.querySelector('#form-signup4 [name="nickname"]');
+      if (nick && state.socialNickname) {
+        nick.value = state.socialNickname;
+        syncFilled(nick);
+      }
+      show("signup1");
+    }
+
+    function goHomeAfterLogin() {
+      window.location.href = "/";
+    }
+
+    function socialHooks() {
+      return {
+        onNeedsSignup: (result) => {
+          enterSocialSignupMode({
+            email: result.email,
+            suggestedNickname: result.suggestedNickname,
+          });
+        },
+        onLoggedIn: () => goHomeAfterLogin(),
+        onError: (err) => setFormError("login-form-error", err.message || String(err)),
+      };
+    }
+
+    function syncFilled(input) {
+      const filled = Boolean(input.value && String(input.value).trim());
+      input.classList.toggle("is-filled", filled);
+    }
+
+    function applyAuthEmailToProfile() {
+      // 소셜 가입: 제공자에서 받은 이메일을 유지 (인증 폼이 비어 있어 덮어쓰면 안 됨)
+      if (state.socialMode) {
+        const profileEmail = document.getElementById("profile-email");
+        if (!profileEmail) return;
+        const value = state.socialEmail || state.email || "";
+        profileEmail.value = value;
+        state.email = value;
+        syncFilled(profileEmail);
+        return;
+      }
+      const authEmail = document.querySelector('#form-signup2 [name="email"]');
+      const profileEmail = document.getElementById("profile-email");
+      if (!authEmail || !profileEmail) return;
+      const value = String(authEmail.value || "").trim();
+      profileEmail.value = value;
+      state.email = value;
+      syncFilled(profileEmail);
+    }
+
+    function show(id) {
+      if (id === "signup4") applyAuthEmailToProfile();
+      document.querySelectorAll(".screen").forEach((el) => el.classList.toggle("active", el.id === id));
+      document.querySelectorAll(".screen-tabs button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.screen === id);
+      });
+    }
+
+    function clearErrors(form) {
+      form.querySelectorAll(".field-error").forEach((el) => {
+        el.textContent = "";
+        el.classList.remove("show");
+      });
+      const formError = form.querySelector(".form-error");
+      if (formError) {
+        formError.textContent = "";
+        formError.classList.remove("show");
+      }
+    }
+
+    function setFormError(id, message) {
+      const errEl = document.getElementById(id);
+      if (!errEl) return;
+      errEl.textContent = message;
+      errEl.classList.add("show");
+    }
+
+    function validateForm(form) {
+      clearErrors(form);
+      let ok = true;
+      form.querySelectorAll("[data-required]").forEach((input) => {
+        if (input.readOnly) return;
+        if (!String(input.value || "").trim()) {
+          ok = false;
+          const err = form.querySelector(`[data-error-for="${input.name}"]`);
+          if (err) {
+            err.textContent = input.dataset.required || "필수 입력입니다";
+            err.classList.add("show");
+          }
+        }
+      });
+      return ok;
+    }
+
+    function bindInputs(root = document) {
+      root.querySelectorAll(".input-destination").forEach((input) => {
+        syncFilled(input);
+        input.addEventListener("input", () => syncFilled(input));
+        input.addEventListener("blur", () => syncFilled(input));
+      });
+    }
+
+    function bindTermChecks() {
+      const all = document.getElementById("all");
+      const terms = [...document.querySelectorAll(".term")];
+      if (!all) return;
+      all.onchange = () => terms.forEach((c) => { c.checked = all.checked; });
+      terms.forEach((c) => {
+        c.onchange = () => {
+          all.checked = terms.length > 0 && terms.every((t) => t.checked);
+        };
+      });
+    }
+
+    const termsModal = {
+      el: document.getElementById("terms-modal"),
+      title: document.getElementById("terms-modal-title"),
+      body: document.getElementById("terms-modal-body"),
+      agree: document.getElementById("terms-modal-agree"),
+      termId: null,
+      termKey: null,
+    };
+
+    function openTermsModal(term) {
+      termsModal.termId = term.id;
+      termsModal.termKey = term.key;
+      termsModal.title.textContent = term.title;
+      termsModal.body.innerHTML = "<p>약관 내용을 불러오는 중…</p>";
+      termsModal.el.classList.add("is-open");
+      termsModal.el.setAttribute("aria-hidden", "false");
+
+      if (!term.contentUrl) {
+        termsModal.body.innerHTML = term.fallbackHtml || "<p>약관 내용이 없습니다.</p>";
+        return;
+      }
+
+      fetch(term.contentUrl, { credentials: "include" })
+        .then(async (res) => {
+          const text = await res.text();
+          if (!res.ok) throw new Error("약관 본문을 불러오지 못했습니다");
+          const match = text.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+          const html = match ? match[1] : text;
+          // 본문도 깨져 있으면 UI fallback 사용
+          termsModal.body.innerHTML = /�|\?{3,}/.test(html) ? (term.fallbackHtml || html) : html;
+        })
+        .catch(() => {
+          termsModal.body.innerHTML = term.fallbackHtml || "<p>약관 본문을 불러오지 못했습니다.</p>";
+        });
+    }
+
+    function closeTermsModal() {
+      termsModal.el.classList.remove("is-open");
+      termsModal.el.setAttribute("aria-hidden", "true");
+      termsModal.termId = null;
+      termsModal.termKey = null;
+    }
+
+    function agreeCurrentTerm() {
+      const key = termsModal.termKey;
+      const id = termsModal.termId;
+      const checkbox =
+        (key && document.querySelector(`.term[data-term-key="${key}"]`)) ||
+        (id != null && document.querySelector(`.term[data-term-id="${id}"]`));
+      if (checkbox) {
+        checkbox.checked = true;
+        checkbox.dispatchEvent(new Event("change"));
+      }
+      closeTermsModal();
+    }
+
+    termsModal.agree.addEventListener("click", agreeCurrentTerm);
+    termsModal.el.querySelectorAll("[data-terms-close]").forEach((el) => {
+      el.addEventListener("click", closeTermsModal);
+    });
+
+    // 표시 문구는 디자인 카피로 고정 (BE 응답 한글 깨짐 방지). id는 BE contentUrl로 매칭.
+    const SIGNUP_TERMS_UI = [
+      {
+        key: "age",
+        title: "만 14세 이상입니다",
+        required: true,
+        contentUrl: "/api/v1/terms/docs/age",
+        fallbackHtml: "<p>본인은 만 14세 이상이며, PlanWith 서비스 이용이 가능함을 확인합니다.</p>",
+      },
+      {
+        key: "service",
+        title: "이용약관 동의",
+        required: true,
+        contentUrl: "/api/v1/terms/docs/service",
+        fallbackHtml: "<p>PlanWith 서비스 이용약관에 동의합니다.</p>",
+      },
+      {
+        key: "privacy",
+        title: "개인정보 수집 및 이용 동의",
+        required: true,
+        contentUrl: "/api/v1/terms/docs/privacy",
+        fallbackHtml: "<p>개인정보 수집 및 이용에 동의합니다.</p>",
+      },
+      {
+        key: "location",
+        title: "위치기반서비스 이용약관 동의",
+        required: false,
+        contentUrl: null,
+        fallbackHtml: "<p>위치기반서비스 이용약관에 동의합니다. (선택)</p>",
+      },
+    ];
+
+    async function loadTerms() {
+      const list = document.getElementById("terms-list");
+      list.innerHTML = `<p class="login-hint">약관을 불러오는 중…</p>`;
+      try {
+        const raw = (await api("/api/v1/terms")) || [];
+        const bySlug = {};
+        raw.forEach((t) => {
+          const slug = String(t.contentUrl || "").split("/").pop();
+          if (slug) bySlug[slug] = t;
+        });
+
+        state.terms = SIGNUP_TERMS_UI.map((term) => {
+          const be = term.key === "location" ? null : bySlug[term.key];
+          return {
+            ...term,
+            id: be?.id ?? null,
+            contentUrl: be?.contentUrl || term.contentUrl,
+          };
+        });
+
+        list.innerHTML = "";
+        state.terms.forEach((t) => {
+          const row = document.createElement("div");
+          row.className = "term-row";
+
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "checkbox";
+          input.className = `check-box term${t.required ? " required-term" : ""}`;
+          if (t.id != null) input.dataset.termId = String(t.id);
+          input.dataset.termKey = t.key;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${t.required ? "[필수]" : "[선택]"} ${t.title}`));
+
+          const viewBtn = document.createElement("button");
+          viewBtn.type = "button";
+          viewBtn.className = "term-view";
+          viewBtn.textContent = "보기";
+          viewBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openTermsModal(t);
+          });
+
+          row.appendChild(label);
+          row.appendChild(viewBtn);
+          list.appendChild(row);
+        });
+        bindTermChecks();
+      } catch (err) {
+        // BE 연결 실패 시에도 UI 카피로 화면은 표시
+        state.terms = SIGNUP_TERMS_UI.map((term) => ({ ...term, id: null }));
+        list.innerHTML = "";
+        state.terms.forEach((t) => {
+          const row = document.createElement("div");
+          row.className = "term-row";
+          row.innerHTML = "";
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "checkbox";
+          input.className = `check-box term${t.required ? " required-term" : ""}`;
+          input.dataset.termKey = t.key;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${t.required ? "[필수]" : "[선택]"} ${t.title}`));
+          const viewBtn = document.createElement("button");
+          viewBtn.type = "button";
+          viewBtn.className = "term-view";
+          viewBtn.textContent = "보기";
+          viewBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openTermsModal(t);
+          });
+          row.appendChild(label);
+          row.appendChild(viewBtn);
+          list.appendChild(row);
+        });
+        bindTermChecks();
+        setFormError("signup1-form-error", err.message || "약관 ID를 불러오지 못했습니다. Gateway/BE를 확인하세요.");
+      }
+    }
+
+    document.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        show(el.dataset.go);
+      });
+    });
+    document.querySelectorAll(".screen-tabs button").forEach((btn) => {
+      btn.addEventListener("click", () => show(btn.dataset.screen));
+    });
+
+    bindInputs();
+    loadTerms();
+
+    // 로그인 → Gateway → BE
+    document.getElementById("form-login").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!validateForm(form)) {
+        setFormError("login-form-error", "이메일과 비밀번호를 입력한 뒤 「탑승 하기」를 눌러주세요");
+        alert("이메일과 비밀번호를 입력한 뒤 「탑승 하기」를 눌러주세요");
+        return;
+      }
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const btn = form.querySelector(".btn-board");
+      if (btn) btn.disabled = true;
+      try {
+        const tokens = await api("/api/v1/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
+        setAccessToken(tokens.accessToken);
+        goHomeAfterLogin();
+        return;
+      } catch (err) {
+        setFormError("login-form-error", err.message);
+        alert(err.message || "로그인에 실패했습니다");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+
+    document.querySelector(".social.naver")?.addEventListener("click", () => {
+      setFormError("login-form-error", "");
+      startNaverLogin();
+    });
+    document.querySelector(".social.google")?.addEventListener("click", () => {
+      setFormError("login-form-error", "");
+      startGoogleLogin();
+    });
+    document.querySelector(".social.kakao")?.addEventListener("click", () => {
+      setFormError("login-form-error", "");
+      startKakaoLogin();
+    });
+
+    // 약관 → 다음
+    document.getElementById("form-signup1").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const required = [...document.querySelectorAll(".required-term")];
+      const formErr = document.getElementById("signup1-form-error");
+      formErr.classList.remove("show");
+      if (!required.length) {
+        setFormError("signup1-form-error", "약관을 먼저 불러와 주세요");
+        return;
+      }
+      if (!required.every((c) => c.checked)) {
+        setFormError("signup1-form-error", "필수 약관에 모두 동의해주세요");
+        return;
+      }
+      state.agreedTermIds = [...document.querySelectorAll(".term:checked")]
+        .map((c) => Number(c.dataset.termId))
+        .filter((id) => Number.isFinite(id));
+      // 선택 약관(위치)은 UI용이라 BE id가 없을 수 있음 — 필수 약관 id만 가입에 전달
+      const requiredIds = state.terms.filter((t) => t.required && t.id != null).map((t) => t.id);
+      const missingRequired = requiredIds.some((id) => !state.agreedTermIds.includes(id));
+      if (missingRequired) {
+        setFormError("signup1-form-error", "필수 약관에 모두 동의해주세요");
+        return;
+      }
+      // 소셜 가입: 이메일 인증 생략 → 프로필
+      if (state.socialMode && loadSocialPending()) {
+        show("signup4");
+        return;
+      }
+      show("signup2");
+    });
+
+    // 인증코드 발송
+    document.getElementById("btn-send-code").addEventListener("click", async () => {
+      const form = document.getElementById("form-signup2");
+      const emailInput = form.querySelector('[name="email"]');
+      clearErrors(form);
+      const email = String(emailInput.value || "").trim();
+      if (!email) {
+        const err = form.querySelector('[data-error-for="email"]');
+        err.textContent = "이메일을 입력해주세요";
+        err.classList.add("show");
+        return;
+      }
+      try {
+        const dup = await api(`/api/v1/auth/check-email?email=${encodeURIComponent(email)}`);
+        if (dup) throw new Error("이미 사용 중인 이메일입니다.");
+        await api("/api/v1/auth/email/send", {
+          method: "POST",
+          body: JSON.stringify({ email }),
+        });
+        state.email = email;
+        applyAuthEmailToProfile();
+        // mock 모드일 때만 dev API로 코드 자동 채움. 실제 발송 시에는 메일함 확인.
+        let autoFilled = false;
+        try {
+          const code = await api(`/api/v1/dev/email-code?email=${encodeURIComponent(email)}`);
+          if (code) {
+            form.querySelector('[name="code"]').value = String(code);
+            syncFilled(form.querySelector('[name="code"]'));
+            autoFilled = true;
+          }
+        } catch {
+          /* real mail mode */
+        }
+        show("signup3");
+        if (!autoFilled) {
+          alert(`${email} 으로 인증번호를 보냈습니다.\n메일함(스팸함 포함)을 확인해 입력해 주세요.`);
+        }
+      } catch (err) {
+        setFormError("signup2-form-error", err.message);
+        alert(err.message || "인증 메일 발송에 실패했습니다");
+      }
+    });
+
+    // 모달 확인 → 인증 화면으로
+    document.querySelectorAll("#signup3 [data-go='signup2']").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        show("signup2");
+      });
+    });
+
+    // 인증번호 확인 버튼
+    document.querySelector('#form-signup2 .input-row .btn-confirm:not(.primary)')?.addEventListener("click", async () => {
+      const form = document.getElementById("form-signup2");
+      const email = form.email.value.trim();
+      const code = form.code.value.trim();
+      clearErrors(form);
+      if (!email || !code) {
+        setFormError("signup2-form-error", "이메일과 인증번호를 입력해주세요");
+        return;
+      }
+      try {
+        await api("/api/v1/auth/email/verify", {
+          method: "POST",
+          body: JSON.stringify({ email, code }),
+        });
+        state.emailVerified = true;
+        state.email = email;
+        setFormError("signup2-form-error", "");
+        document.getElementById("signup2-form-error").classList.remove("show");
+        alert("이메일 인증이 완료되었습니다");
+      } catch (err) {
+        setFormError("signup2-form-error", err.message);
+      }
+    });
+
+    // 인증 다음 → 프로필
+    document.getElementById("form-signup2").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!validateForm(form)) {
+        setFormError("signup2-form-error", "입력되지 않은 항목이 있습니다");
+        return;
+      }
+      const email = form.email.value.trim();
+      const code = form.code.value.trim();
+      const password = form.password.value;
+      try {
+        if (!state.emailVerified) {
+          await api("/api/v1/auth/email/verify", {
+            method: "POST",
+            body: JSON.stringify({ email, code }),
+          });
+          state.emailVerified = true;
+        }
+        state.email = email;
+        state.password = password;
+        applyAuthEmailToProfile();
+        show("signup4");
+      } catch (err) {
+        setFormError("signup2-form-error", err.message);
+      }
+    });
+
+    // 프로필 이미지
+    document.getElementById("btn-avatar").addEventListener("click", () => {
+      document.getElementById("avatar-file").click();
+    });
+    document.getElementById("avatar-file").addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        const fd = new FormData();
+        fd.append("file", file);
+        const url = await api("/api/v1/auth/profile-image", { method: "POST", body: fd });
+        state.profileImage = url;
+        const preview = document.getElementById("avatar-preview");
+        preview.src = url.startsWith("http") ? url : url;
+        preview.style.width = "100%";
+        preview.style.height = "100%";
+        preview.style.objectFit = "cover";
+        preview.style.imageRendering = "auto";
+      } catch (err) {
+        setFormError("signup4-form-error", err.message);
+      }
+    });
+
+    // 닉네임 중복 확인
+    document.querySelector("#form-signup4 .btn-confirm")?.addEventListener("click", async () => {
+      const form = document.getElementById("form-signup4");
+      const nickname = form.nickname.value.trim();
+      clearErrors(form);
+      if (!nickname) {
+        const err = form.querySelector('[data-error-for="nickname"]');
+        err.textContent = "닉네임을 입력해주세요";
+        err.classList.add("show");
+        return;
+      }
+      try {
+        const dup = await api(`/api/v1/auth/check-nickname?nickname=${encodeURIComponent(nickname)}`);
+        if (dup) throw new Error("이미 사용 중인 닉네임입니다.");
+        alert("사용 가능한 닉네임입니다");
+      } catch (err) {
+        setFormError("signup4-form-error", err.message);
+      }
+    });
+
+    // 회원가입 완료
+    document.getElementById("form-signup4").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!validateForm(form)) {
+        setFormError("signup4-form-error", "입력되지 않은 항목이 있습니다");
+        return;
+      }
+      if (!state.agreedTermIds.length) {
+        setFormError("signup4-form-error", "약관 동의를 먼저 완료해주세요");
+        return;
+      }
+      const nickname = form.nickname.value.trim();
+      const introduction = form.intro.value.trim() || null;
+      try {
+        const nickDup = await api(`/api/v1/auth/check-nickname?nickname=${encodeURIComponent(nickname)}`);
+        if (nickDup) throw new Error("이미 사용 중인 닉네임입니다.");
+
+        if (state.socialMode && loadSocialPending()) {
+          await finishSocialSignup({
+            nickname,
+            agreedTermIds: state.agreedTermIds,
+          });
+          state.socialMode = false;
+          clearSocialPending();
+          goHomeAfterLogin();
+          return;
+        }
+
+        if (!state.password || !state.email) {
+          setFormError("signup4-form-error", "인증 단계를 먼저 완료해주세요");
+          return;
+        }
+        await api("/api/v1/auth/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            email: state.email,
+            password: state.password,
+            nickname,
+            profileImage: state.profileImage,
+            introduction,
+            agreedTermIds: state.agreedTermIds,
+          }),
+        });
+        const tokens = await api("/api/v1/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email: state.email, password: state.password }),
+        });
+        setAccessToken(tokens.accessToken);
+        goHomeAfterLogin();
+        return;
+      } catch (err) {
+        setFormError("signup4-form-error", err.message);
+      }
+    });
+
+    // OAuth 콜백 복귀 / 이미 로그인된 경우
+    const qs = new URLSearchParams(window.location.search);
+    if (qs.get("socialSignup") === "1") {
+      const pending = loadSocialPending();
+      if (pending) enterSocialSignupMode(pending);
+      history.replaceState({}, "", "/auth.html");
+    } else if (qs.get("socialLogin") === "1") {
+      goHomeAfterLogin();
+    } else if (getAccessToken()) {
+      api("/api/v1/members/me")
+        .then((me) => console.info("[PlanWith] logged in:", me?.nickname))
+        .catch(() => setAccessToken(null));
+    }
+  </script>
+</body>
+</html>
+

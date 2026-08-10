@@ -1,0 +1,74 @@
+/* signup verify modal — from figma-raw/signup-verify-modal.figma-raw.css */
+
+.modal-backdrop {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 1920px;
+  height: 1024px;
+  left: 0;
+  top: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 5;
+}
+
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  gap: 24px;
+  width: 440px;
+  min-height: 305px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 12px 32px rgba(15, 23, 42, 0.121569);
+  border-radius: 24px;
+}
+
+.check-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background: #387BFF;
+  box-shadow: 0px 6px 16px rgba(119, 165, 255, 0.301961);
+  border-radius: 36px;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.modal-card .title {
+  width: 376px;
+  font: 800 18px/22px "Gothic A1", sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.modal-card .description {
+  width: 376px;
+  font: 500 14px/160% "Gothic A1", sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.modal-card .hint {
+  width: 376px;
+  font: 500 12px/160% "Gothic A1", sans-serif;
+  text-align: center;
+  color: #fff;
+}
+
+.modal-card .actions-row {
+  display: flex;
+  width: 332px;
+}
+
+.modal-card .actions-row .btn-confirm {
+  width: 332px;
+  flex: 1;
+}

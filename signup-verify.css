@@ -1,0 +1,32 @@
+/* signup email verify — from figma-raw/signup-verify.figma-raw.css */
+
+.signup2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 1920px;
+}
+
+.signup2 .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 0 0;
+  gap: 35px;
+}
+
+.signup2 .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+
+.signup2 .field { width: 600px; }
+.signup2 .input-destination.auth { width: 420px; }
+.signup2 .input-destination.wide { width: 540px; }
+.signup2 .btn-next { margin-top: 10px; }

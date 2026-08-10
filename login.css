@@ -1,0 +1,155 @@
+/* login styles — from figma-raw/login.export.html */
+
+.login-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0 0;
+  gap: 4px;
+  width: 1920px;
+}
+
+.boarding-pass {
+  font: 400 16px/100% "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0px 3px 2.5px #216BFE;
+}
+
+.login-hero h1 {
+  margin-top: 20px;
+  font: 700 48px/100% "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.login-hero .sub {
+  margin-top: 10px;
+  font: 400 16px/120% "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  color: #3A4F78;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 0 15px;
+  gap: 12px;
+  width: 1920px;
+}
+
+.login-form .field { width: 330px; }
+.login-form .input-destination { width: 330px; }
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 4px 0;
+  cursor: pointer;
+  color: #8F8F8D;
+  font: 400 14px/150% "Gothic A1", sans-serif;
+}
+
+/* 간편 로그인 블록 가운데 정렬 */
+.easy-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.divider-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 800px;
+  max-width: 90%;
+  padding: 30px 0 20px;
+  margin: 0 auto;
+  color: #fff;
+  font: 500 14px/18px "Gothic A1", sans-serif;
+  text-align: center;
+}
+
+.divider-row span {
+  flex: none;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.divider-row .line {
+  flex: 1 1 auto;
+  border-top: 1px solid #fff;
+  min-width: 80px;
+}
+
+.social-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  height: 55px;
+  margin: 0 auto;
+}
+
+.social {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.social.naver { background: #03C75A; color: #fff; }
+.social.kakao { background: #FEE500; color: #391B1B; }
+.social.google { background: #fff; border: 1px solid #E2E2E2; color: #4285F4; }
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 0 40px;
+  width: 1920px;
+}
+
+.find-row {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.find-link {
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  color: #fff;
+  font: 400 16px/20px "Gothic A1", sans-serif;
+  cursor: pointer;
+}
+
+.signup-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  font: 400 14px/18px "Gothic A1", sans-serif;
+}
+
+.signup-row button {
+  border: 0;
+  background: none;
+  color: #fff;
+  font: 400 16px/20px "Gothic A1", sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,446 @@
+/* 웹메인 — 비로그인 (도쿄 기본) */
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&display=swap");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Gothic A1", sans-serif;
+  background: #000;
+  min-height: 100vh;
+  overflow-x: auto;
+  color: #fff;
+}
+
+.home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1920px;
+  min-height: 1024px;
+  margin: 0 auto;
+  gap: 40px;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.home__bg {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1024px;
+  --home-bg: url("assets/bg-tokyo.png");
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    var(--home-bg) center / cover no-repeat,
+    #0a0f1a;
+  z-index: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* 도시 랜드마크 장식 — 「여행 하기」 버튼 열(~32px)부터 바닥까지 */
+.home__landmark {
+  position: absolute;
+  width: 1180px;
+  height: calc(1024px - 32px);
+  left: 720px;
+  top: 32px;
+  bottom: 0;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.45));
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home__landmark.is-switching {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* 도쿄만 한 단계 더 크게 */
+.home__landmark.is-tokyo {
+  width: 1320px;
+  left: 640px;
+  top: 20px;
+  height: calc(1024px - 20px);
+}
+
+/* header */
+.home-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 125px;
+  width: 1920px;
+  height: 106px;
+  position: relative;
+  z-index: 4;
+}
+
+.home-header__logo {
+  width: 80px;
+  height: 80px;
+  display: block;
+  object-fit: contain;
+}
+
+.home-header__cta {
+  width: 129px;
+  height: 49px;
+  position: relative;
+}
+
+.home-cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  width: 129px;
+  height: 45px;
+  background: #387BFF;
+  border: 0;
+  border-radius: 30px;
+  font: 500 15px/19px "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.home-cta:hover { filter: brightness(1.08); }
+
+.home-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  left: 766px;
+  top: 31px;
+  height: 40px;
+  isolation: isolate;
+}
+
+.home-nav--guest { width: 389px; }
+.home-nav--user {
+  left: 707px;
+  width: 506px;
+}
+
+.home-header[data-auth="guest"] .home-header__user-only,
+.home-header[data-auth="guest"] .home-nav--user { display: none !important; }
+
+.home-header[data-auth="user"] .home-header__guest-only,
+.home-header[data-auth="user"] .home-nav--guest { display: none !important; }
+
+.home-header[data-auth="user"] .home-nav--user { display: flex !important; }
+.home-header[data-auth="user"] .home-userbar { display: flex !important; }
+
+.home-nav__indicator {
+  position: absolute;
+  width: 49px;
+  height: 38px;
+  left: 0;
+  top: 1px;
+  background: #387BFF;
+  border: 1px solid rgba(56, 123, 255, 0.4);
+  border-radius: 20px;
+  transition: transform 0.25s ease, width 0.25s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-nav__item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  font: 500 15px/19px "Gothic A1", sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.home-nav__item.is-active {
+  font-weight: 600;
+  color: #fff;
+}
+
+.home-nav__item .caret {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.8);
+  transform: rotate(45deg) translateY(-2px);
+  display: inline-block;
+}
+
+.home-nav__dropdown {
+  position: relative;
+}
+
+.home-nav__submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 108px;
+  padding: 8px 0;
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: 12px;
+  z-index: 5;
+}
+
+.home-nav__dropdown.is-open .home-nav__submenu { display: flex; }
+
+.home-nav__submenu button {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font: 500 14px/1.2 "Gothic A1", sans-serif;
+  padding: 8px 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.home-nav__submenu button:hover { color: #fff; }
+
+/* 로그인 우측 유저바 */
+.home-userbar {
+  display: none;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 9px;
+  width: 245px;
+  height: 37px;
+  position: relative;
+  z-index: 2;
+}
+
+.home-userbar__token {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  height: 24px;
+}
+
+.home-userbar__token-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex: none;
+  /* PNG 검정 배경 제거 */
+  mix-blend-mode: screen;
+}
+
+.home-userbar__token-value {
+  font: 600 14px/17px "Inter", "Gothic A1", sans-serif;
+  color: #fff;
+}
+
+.home-userbar__profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 108px;
+  height: 37px;
+}
+
+.home-userbar__name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font: 600 14px/17px "Inter", "Gothic A1", sans-serif;
+  color: #fff;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-userbar__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 30px;
+  object-fit: cover;
+  background: #fff;
+  flex: none;
+  display: block;
+}
+
+.home-userbar__avatar:not(.has-image) {
+  object-fit: contain;
+  mix-blend-mode: screen;
+  background: transparent;
+}
+
+.home-userbar__icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+}
+
+.home-userbar__icon {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-userbar__icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: screen;
+}
+
+/* hero copy */
+.home-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 140px 120px 0;
+  gap: 15px;
+  width: 1920px;
+  min-height: 474px;
+  position: relative;
+  z-index: 5;
+}
+
+.home-desc__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+  max-width: 1100px;
+}
+
+.home-desc__city-en {
+  font: 400 160px/100% "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.home-desc__city-ko {
+  margin-top: 0;
+  font: 400 48px/100% "Gothic A1", sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.home-desc__text {
+  width: 408px;
+  font: 400 16px/160% "Gothic A1", sans-serif;
+  color: rgba(255, 255, 255, 0.93);
+}
+
+.home-desc__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font: 700 16px/20px "Gothic A1", sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-desc__link .arrow {
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(45deg);
+}
+
+/* destination rail */
+.home-destinations {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 120px;
+  gap: 24px;
+  position: absolute;
+  width: 1920px;
+  left: 0;
+  top: 315px;
+  z-index: 6;
+}
+
+.home-dest {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  width: 1680px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #fff;
+}
+
+.home-dest__line {
+  box-sizing: border-box;
+  width: 2px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  flex: none;
+}
+
+.home-dest__labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.home-dest__ko,
+.home-dest__en {
+  font: 700 15px/19px "Gothic A1", sans-serif;
+  text-align: right;
+  color: #fff;
+}
+
+.home-dest__ko { letter-spacing: -0.01em; }
+.home-dest__en { letter-spacing: 0.04em; }
+
+.home-dest.is-active .home-dest__line {
+  background: #77A5FF;
+  box-shadow: -4px 0 10px #77A5FF;
+}
+
+.home-dest.is-active .home-dest__ko,
+.home-dest.is-active .home-dest__en {
+  color: #77A5FF;
+}

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLAN &amp; WITH</title>
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+  <div class="home" id="home">
+    <div class="home__bg" id="home-bg" aria-hidden="true"></div>
+    <img
+      class="home__landmark is-tokyo"
+      id="home-landmark"
+      src="assets/landmark-tokyo.png"
+      alt=""
+      aria-hidden="true"
+    />
+
+    <header class="home-header" id="home-header" data-auth="guest">
+      <a href="/" aria-label="홈">
+        <img class="home-header__logo" src="assets/logo-planwith.png" alt="PLAN &amp; WITH" width="80" height="80" />
+      </a>
+
+      <!-- 비로그인 메뉴 -->
+      <nav class="home-nav home-nav--guest" aria-label="메인 메뉴">
+        <div class="home-nav__indicator" data-nav-indicator aria-hidden="true"></div>
+        <button class="home-nav__item is-active" type="button" data-nav="home">홈</button>
+        <button class="home-nav__item" type="button" data-nav="ai">AI 일정생성</button>
+        <div class="home-nav__dropdown">
+          <button class="home-nav__item" type="button" data-nav="community">
+            커뮤니티 <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="home-nav__submenu" role="menu">
+            <button type="button" role="menuitem">여행 스토리</button>
+            <button type="button" role="menuitem">모임</button>
+          </div>
+        </div>
+        <button class="home-nav__item" type="button" data-nav="search">검색</button>
+      </nav>
+
+      <div class="home-header__cta home-header__guest-only">
+        <a class="home-cta" href="/auth.html">여행 하기</a>
+      </div>
+
+      <!-- 로그인 메뉴 -->
+      <nav class="home-nav home-nav--user" aria-label="로그인 메뉴">
+        <div class="home-nav__indicator" data-nav-indicator aria-hidden="true"></div>
+        <button class="home-nav__item is-active" type="button" data-nav="home">홈</button>
+        <div class="home-nav__dropdown">
+          <button class="home-nav__item" type="button" data-nav="schedule">
+            일정관리 <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="home-nav__submenu" role="menu">
+            <button type="button" role="menuitem">내 일정</button>
+            <button type="button" role="menuitem">공유 일정</button>
+          </div>
+        </div>
+        <div class="home-nav__dropdown">
+          <button class="home-nav__item" type="button" data-nav="community">
+            커뮤니티 <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="home-nav__submenu" role="menu">
+            <button type="button" role="menuitem">여행 스토리</button>
+            <button type="button" role="menuitem">모임</button>
+          </div>
+        </div>
+        <div class="home-nav__dropdown">
+          <button class="home-nav__item" type="button" data-nav="mypage">
+            마이페이지 <span class="caret" aria-hidden="true"></span>
+          </button>
+          <div class="home-nav__submenu" role="menu">
+            <button type="button" role="menuitem">프로필</button>
+            <button type="button" role="menuitem" id="btn-logout">로그아웃</button>
+          </div>
+        </div>
+        <button class="home-nav__item" type="button" data-nav="search">검색</button>
+      </nav>
+
+      <div class="home-userbar home-header__user-only">
+        <div class="home-userbar__token" title="토큰">
+          <img class="home-userbar__token-icon" src="assets/icon-token.png" alt="" width="24" height="24" />
+          <span class="home-userbar__token-value" id="user-token">500</span>
+        </div>
+        <div class="home-userbar__profile">
+          <span class="home-userbar__name" id="user-nickname">회원님</span>
+          <img
+            class="home-userbar__avatar"
+            id="user-avatar"
+            src="assets/icon-user.png"
+            alt=""
+            width="36"
+            height="36"
+          />
+        </div>
+        <div class="home-userbar__icons">
+          <button class="home-userbar__icon" type="button" aria-label="메시지">
+            <img src="assets/icon-message.png" alt="" width="30" height="30" />
+          </button>
+          <button class="home-userbar__icon" type="button" aria-label="알림">
+            <img src="assets/icon-bell.png" alt="" width="30" height="30" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="home-desc">
+      <div class="home-desc__stack">
+        <h1 class="home-desc__city-en" id="city-en">TOKYO</h1>
+        <p class="home-desc__city-ko" id="city-ko">도쿄</p>
+      </div>
+      <p class="home-desc__text" id="city-desc">
+        전통과 현대가 공존하는 도시, 도쿄. 시부야의 네온사인부터 아사쿠사의 고즈넉한 사찰까지, 무한한 매력을 발견하세요.
+      </p>
+      <a class="home-desc__link" href="/auth.html">
+        더 알아보기
+        <span class="arrow" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <div class="home-destinations" role="listbox" aria-label="여행지">
+      <button class="home-dest is-active" type="button" role="option" aria-selected="true" data-city="tokyo">
+        <span class="home-dest__line" aria-hidden="true"></span>
+        <span class="home-dest__labels">
+          <span class="home-dest__ko">도쿄</span>
+          <span class="home-dest__en">TOKYO</span>
+        </span>
+      </button>
+      <button class="home-dest" type="button" role="option" aria-selected="false" data-city="newyork">
+        <span class="home-dest__line" aria-hidden="true"></span>
+        <span class="home-dest__labels">
+          <span class="home-dest__ko">뉴욕</span>
+          <span class="home-dest__en">NEW YORK</span>
+        </span>
+      </button>
+      <button class="home-dest" type="button" role="option" aria-selected="false" data-city="london">
+        <span class="home-dest__line" aria-hidden="true"></span>
+        <span class="home-dest__labels">
+          <span class="home-dest__ko">런던</span>
+          <span class="home-dest__en">LONDON</span>
+        </span>
+      </button>
+      <button class="home-dest" type="button" role="option" aria-selected="false" data-city="paris">
+        <span class="home-dest__line" aria-hidden="true"></span>
+        <span class="home-dest__labels">
+          <span class="home-dest__ko">파리</span>
+          <span class="home-dest__en">PARIS</span>
+        </span>
+      </button>
+      <button class="home-dest" type="button" role="option" aria-selected="false" data-city="seoul">
+        <span class="home-dest__line" aria-hidden="true"></span>
+        <span class="home-dest__labels">
+          <span class="home-dest__ko">서울</span>
+          <span class="home-dest__en">SEOUL</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { api, getAccessToken, setAccessToken } from "./auth-api.js";
+
+    const CITIES = {
+      tokyo: {
+        en: "TOKYO",
+        ko: "도쿄",
+        bg: "assets/bg-tokyo.png",
+        landmark: "assets/landmark-tokyo.png",
+        desc: "전통과 현대가 공존하는 도시, 도쿄. 시부야의 네온사인부터 아사쿠사의 고즈넉한 사찰까지, 무한한 매력을 발견하세요.",
+      },
+      newyork: {
+        en: "NEW YORK",
+        ko: "뉴욕",
+        bg: "assets/bg-newyork.png",
+        landmark: "assets/landmark-newyork.png",
+        desc: "잠들지 않는 도시, 뉴욕, 브로드웨이의 화려함과 센트럴파크의 여유로움이 공존하는 꿈의 도시를 경험하세요.",
+      },
+      london: {
+        en: "LONDON",
+        ko: "런던",
+        bg: "assets/bg-london.png",
+        landmark: "assets/landmark-london.png",
+        desc: "클래식의 도시, 런던. 빅벤의 위엄부터 템즈 강변의 고즈넉함까지, 역사와 현대가 공존하는 영국의 수도를 경험하세요.",
+      },
+      paris: {
+        en: "PARIS",
+        ko: "파리",
+        bg: "assets/bg-paris.png",
+        landmark: "assets/landmark-paris.png",
+        desc: "낭만의 도시, 파리. 에펠탑의 황금빛 야경부터 센 강변의 여유로운 산책까지, 예술과 사랑이 넘치는 도시를 만나보세요.",
+      },
+      seoul: {
+        en: "SEOUL",
+        ko: "서울",
+        bg: "assets/bg-seoul.png",
+        landmark: "assets/landmark-seoul.png",
+        desc: "천년 고도의 품격, 서울. 경복궁부터 한강 야경까지, 전통과 현대가 공존하는 대한민국의 심장을 느껴보세요.",
+      },
+    };
+
+    // 장식 이미지 프리로드
+    Object.values(CITIES).forEach((c) => {
+      const img = new Image();
+      img.src = c.landmark;
+      const bg = new Image();
+      bg.src = c.bg;
+    });
+
+    const cityEn = document.getElementById("city-en");
+    const cityKo = document.getElementById("city-ko");
+    const cityDesc = document.getElementById("city-desc");
+    const homeBg = document.getElementById("home-bg");
+    const landmark = document.getElementById("home-landmark");
+    const destButtons = [...document.querySelectorAll(".home-dest")];
+
+    function selectCity(key) {
+      const data = CITIES[key];
+      if (!data) return;
+      cityEn.textContent = data.en;
+      cityKo.textContent = data.ko;
+      cityDesc.textContent = data.desc;
+      homeBg.style.setProperty("--home-bg", `url("${data.bg}")`);
+
+      landmark.classList.add("is-switching");
+      window.setTimeout(() => {
+        landmark.src = data.landmark;
+        landmark.classList.toggle("is-tokyo", key === "tokyo");
+        landmark.classList.remove("is-switching");
+      }, 180);
+
+      destButtons.forEach((btn) => {
+        const on = btn.dataset.city === key;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+      });
+    }
+
+    destButtons.forEach((btn) => {
+      btn.addEventListener("click", () => selectCity(btn.dataset.city));
+    });
+
+    const header = document.getElementById("home-header");
+
+    function activeNav() {
+      return header?.dataset.auth === "user"
+        ? document.querySelector(".home-nav--user")
+        : document.querySelector(".home-nav--guest");
+    }
+
+    function moveIndicator(el) {
+      const nav = el?.closest(".home-nav") || activeNav();
+      const indicator = nav?.querySelector("[data-nav-indicator]");
+      if (!indicator || !el || !nav) return;
+      const navRect = nav.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      indicator.style.width = `${Math.max(49, r.width)}px`;
+      indicator.style.transform = `translateX(${r.left - navRect.left}px)`;
+    }
+
+    function bindNav(nav) {
+      if (!nav || nav.dataset.bound) return;
+      nav.dataset.bound = "1";
+      const items = [...nav.querySelectorAll(".home-nav__item[data-nav]")];
+
+      items.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          const dropdown = item.closest(".home-nav__dropdown");
+          if (dropdown) {
+            e.stopPropagation();
+            nav.querySelectorAll(".home-nav__dropdown.is-open").forEach((d) => {
+              if (d !== dropdown) d.classList.remove("is-open");
+            });
+            dropdown.classList.toggle("is-open");
+            items.forEach((n) => n.classList.remove("is-active"));
+            item.classList.add("is-active");
+            moveIndicator(item);
+            return;
+          }
+          items.forEach((n) => n.classList.remove("is-active"));
+          item.classList.add("is-active");
+          moveIndicator(item);
+        });
+      });
+    }
+
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".home-nav__dropdown.is-open").forEach((d) => {
+        d.classList.remove("is-open");
+      });
+    });
+
+    function showGuestHeader() {
+      header.dataset.auth = "guest";
+      bindNav(document.querySelector(".home-nav--guest"));
+      requestAnimationFrame(() => {
+        moveIndicator(document.querySelector('.home-nav--guest [data-nav="home"]'));
+      });
+    }
+
+    function showUserHeader(me) {
+      header.dataset.auth = "user";
+
+      const nick = me?.nickname || "회원";
+      document.getElementById("user-nickname").textContent = `${nick}님`;
+
+      const avatar = document.getElementById("user-avatar");
+      if (me?.profileImage) {
+        avatar.src = me.profileImage;
+        avatar.classList.add("has-image");
+      } else {
+        avatar.src = "assets/icon-user.png";
+        avatar.classList.remove("has-image");
+      }
+
+      bindNav(document.querySelector(".home-nav--user"));
+      requestAnimationFrame(() => {
+        moveIndicator(document.querySelector('.home-nav--user [data-nav="home"]'));
+      });
+    }
+
+    async function resolveAuthHeader() {
+      if (!getAccessToken()) {
+        showGuestHeader();
+        return;
+      }
+      try {
+        const me = await api("/api/v1/members/me");
+        showUserHeader(me);
+        try {
+          const rewards = await api("/api/v1/members/me/grade/rewards");
+          const latest = Array.isArray(rewards) ? rewards[0] : null;
+          if (latest?.tokenAmount != null) {
+            document.getElementById("user-token").textContent = String(latest.tokenAmount);
+          }
+        } catch {
+          /* keep design default 500 */
+        }
+      } catch {
+        setAccessToken(null);
+        showGuestHeader();
+      }
+    }
+
+    document.getElementById("btn-logout")?.addEventListener("click", async () => {
+      try {
+        await api("/api/v1/auth/logout", { method: "POST" });
+      } catch {
+        /* ignore */
+      }
+      setAccessToken(null);
+      location.reload();
+    });
+
+    bindNav(document.querySelector(".home-nav--guest"));
+    requestAnimationFrame(() => {
+      moveIndicator(document.querySelector('.home-nav--guest [data-nav="home"]'));
+    });
+    window.addEventListener("resize", () => {
+      const nav = activeNav();
+      const active = nav?.querySelector(".home-nav__item.is-active");
+      moveIndicator(active);
+    });
+
+    resolveAuthHeader();
+  </script>
+</body>
+</html>

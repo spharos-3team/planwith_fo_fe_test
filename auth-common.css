@@ -1,0 +1,377 @@
+/* Shared auth UI tokens (login + signup screens) */
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&display=swap");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Gothic A1", sans-serif;
+  background: #000;
+  min-height: 100vh;
+  overflow-x: auto;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 1920px;
+  min-height: 1024px;
+  margin: 0 auto;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* background-photo */
+.background-photo {
+  position: absolute;
+  width: 1920px;
+  height: 1024px;
+  left: 0;
+  top: 0;
+  background:
+    linear-gradient(0deg, rgba(224, 235, 255, 0.45), rgba(224, 235, 255, 0.45)),
+    url("assets/bg-airport.png") center / cover no-repeat,
+    #000;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: 0;
+}
+
+.screen-tabs {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 280px;
+}
+
+.screen-tabs button {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font: 500 12px/1 "Gothic A1", sans-serif;
+  cursor: pointer;
+}
+
+.screen-tabs button.active { background: #387BFF; }
+
+.screen { display: none; width: 1920px; min-height: 1024px; position: relative; z-index: 1; }
+.screen.active { display: block; }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 125px;
+  width: 1920px;
+  height: 106px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+}
+
+.header-cta-wrap {
+  width: 129px;
+  height: 49px;
+  position: relative;
+}
+
+.cta-travel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  width: 129px;
+  height: 45px;
+  background: #387BFF;
+  border-radius: 30px;
+  border: 0;
+  color: #fff;
+  font: 500 15px/19px "Gothic A1", sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-label {
+  position: absolute;
+  width: 129px;
+  left: 0;
+  top: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font: 500 15px/19px "Gothic A1", sans-serif;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  width: 389px;
+  height: 40px;
+  left: 766px;
+  top: 31px;
+}
+
+.active-indicator {
+  position: absolute;
+  width: 49px;
+  height: 38px;
+  left: 0;
+  top: 1px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.nav-item {
+  border: 0;
+  background: transparent;
+  padding: 8px 16px;
+  height: 35px;
+  color: rgba(255, 255, 255, 0.8);
+  font: 500 15px/19px "Gothic A1", sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-item.active { color: #fff; }
+
+.dropdown-arrow {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  transform: rotate(45deg);
+  vertical-align: 2px;
+}
+
+.airport-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 20px;
+}
+
+.airport-line .dash {
+  width: 130px;
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.8);
+  margin: 0 10px;
+}
+
+.airport-line .dash.on {
+  border-top-color: rgba(74, 135, 255, 0.83);
+}
+
+.airport-icon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  transform: rotate(45deg);
+}
+
+.airport-icon.on {
+  background: #0044CA;
+  border-color: #0044CA;
+}
+
+.screen-title {
+  font: 800 29px/36px "Gothic A1", sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.screen-sub {
+  font: 400 14px/18px "Gothic A1", sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.field { width: 100%; }
+
+/* 라벨 — 원본 CSS: #5B5B5A */
+.field-label {
+  font: 400 14px/18px "Gothic A1", sans-serif;
+  color: #5B5B5A;
+  padding: 0 0 8px 4px;
+}
+
+/* input-destination — 원본 CSS */
+.input-destination {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  gap: 8px;
+  width: 330px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1.5px solid #E6EBF2;
+  border-radius: 8px;
+  font: 400 16px/20px "Gothic A1", sans-serif;
+  color: #5B5B5A;
+  outline: none;
+  transition: background 0.15s ease;
+}
+
+/* placeholder — 원본: #848484 / rgba(143,143,141,0.8) */
+.input-destination::placeholder {
+  color: rgba(143, 143, 141, 0.8);
+}
+
+.input-destination.wide { width: 507px; }
+.input-destination.auth { width: 420px; }
+
+/* 입력된 칸 — signup-profile: rgba(56,123,255,0.2) + #5B5B5A */
+.input-destination.is-filled,
+.input-destination:not(:placeholder-shown) {
+  background: rgba(56, 123, 255, 0.2);
+  color: #5B5B5A;
+}
+
+/* 경고 시에도 입력창 배경/테두리는 유지 (문구만 빨강) */
+
+.field-error {
+  display: none;
+  margin-top: 6px;
+  padding-left: 4px;
+  color: #ff4d4f;
+  font: 500 13px/18px "Gothic A1", sans-serif;
+}
+
+.field-error.show { display: block; }
+
+.form-error {
+  display: none;
+  margin: 8px 0 0;
+  color: #ff4d4f;
+  font: 500 14px/20px "Gothic A1", sans-serif;
+  text-align: center;
+}
+
+.form-error.show { display: block; }
+
+/* checkbox with white check */
+.check-box {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #fff;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  flex: none;
+  vertical-align: middle;
+}
+
+.check-box:checked {
+  background: transparent;
+  border-color: #fff;
+}
+
+.check-box:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.btn-next,
+.btn-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 30px;
+  min-width: 220px;
+  height: 55px;
+  background: #387BFF;
+  box-shadow: 0px 4px 16px rgba(184, 166, 179, 0.4);
+  border-radius: 24px;
+  border: 0;
+  color: #fff;
+  font: 700 16px/20px "Gothic A1", sans-serif;
+  cursor: pointer;
+}
+
+.btn-next.is-disabled,
+.btn-board.is-disabled {
+  background: rgba(120, 130, 140, 0.75);
+  box-shadow: none;
+}
+
+/* 중복 확인 등 — signup-profile */
+.btn-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 16px;
+  height: 48px;
+  min-width: 80px;
+  background: #FFFFFF;
+  border: 1.5px solid #E6EBF2;
+  border-radius: 8px;
+  color: rgba(143, 143, 141, 0.8);
+  font: 400 16px/20px "Gothic A1", sans-serif;
+  cursor: pointer;
+}
+
+.btn-confirm.primary {
+  background: #387BFF;
+  border-color: #387BFF;
+  color: #fff;
+  font-weight: 700;
+}
+
+.login-hint {
+  margin-top: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font: 400 14px/20px "Gothic A1", sans-serif;
+}
+
+.login-hint a {
+  color: #fff;
+  font-weight: 500;
+  margin-left: 4px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}

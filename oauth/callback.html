@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OAuth Callback</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Gothic A1", sans-serif;
+      background: #0f172a;
+      color: #fff;
+    }
+    .box { text-align: center; padding: 24px; }
+    .err { color: #ff8a80; margin-top: 12px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div id="msg">소셜 로그인 처리 중…</div>
+    <div class="err" id="err"></div>
+  </div>
+  <script type="module">
+    import { socialLoginWithCode } from "../social-auth.js";
+    import { OAUTH } from "../oauth-config.js";
+
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    const oauthError = params.get("error");
+    const msg = document.getElementById("msg");
+    const errEl = document.getElementById("err");
+
+    const expectedState = sessionStorage.getItem("oauth_state");
+    const provider = sessionStorage.getItem("oauth_provider");
+
+    function fail(message) {
+      msg.textContent = "로그인 실패";
+      errEl.textContent = message;
+    }
+
+    if (oauthError) {
+      fail(params.get("error_description") || oauthError);
+    } else if (!code || !provider) {
+      fail("인가 코드 또는 provider 정보가 없습니다.");
+    } else if (expectedState && state !== expectedState) {
+      fail("state 값이 일치하지 않습니다. 다시 시도해 주세요.");
+    } else {
+      socialLoginWithCode(provider, code, OAUTH.redirectUri, state, {
+        onNeedsSignup: () => {
+          sessionStorage.removeItem("oauth_state");
+          sessionStorage.removeItem("oauth_provider");
+          window.location.replace("/auth.html?socialSignup=1");
+        },
+        onLoggedIn: async () => {
+          sessionStorage.removeItem("oauth_state");
+          sessionStorage.removeItem("oauth_provider");
+          window.location.replace("/");
+        },
+        onError: (err) => fail(err.message || String(err)),
+      }).catch((err) => fail(err.message || String(err)));
+    }
+  </script>
+</body>
+</html>

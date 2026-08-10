@@ -1,0 +1,83 @@
+/* signup profile — from figma-raw/signup-profile.figma-raw.css */
+
+.signup3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  width: 1920px;
+}
+
+.signup3 .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 0 0;
+  gap: 35px;
+}
+
+.avatar-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 120px;
+  height: 90px;
+}
+
+.avatar {
+  box-sizing: border-box;
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  border: 1px solid #E6EBF2;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.avatar-camera {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.camera-badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  background: #387BFF;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.camera-badge img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.signup3 .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.signup3 .field { width: 540px; }
+.signup3 .input-destination.wide { width: 540px; }
+.signup3 .input-destination.auth { width: 420px; }
+.signup3 .btn-next { margin-top: 8px; width: 280px; }

@@ -1,0 +1,211 @@
+/* signup terms — from figma-raw/signup-terms.figma-raw.css */
+
+.signup1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  gap: 50px;
+  width: 1920px;
+}
+
+.signup1 .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 0 0;
+  gap: 35px;
+}
+
+.signup1 .terms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 724px;
+}
+
+#terms-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 684px;
+  gap: 0;
+}
+
+.term-all,
+.term-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  color: #fff;
+  font: 400 16px/20px "Gothic A1", sans-serif;
+}
+
+.term-row {
+  justify-content: space-between;
+  width: 684px;
+}
+
+.term-row label,
+.term-all label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.term-all .check-box { width: 20px; height: 20px; }
+
+.term-view {
+  color: #fff;
+  font: 400 16px/150% "Gothic A1", sans-serif;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  flex: none;
+  padding: 0;
+}
+
+.contact-pref {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px 24px 15px 28px;
+  gap: 20px;
+  width: 684px;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+}
+
+.contact-pref .pref-title {
+  font: 600 14px/150% "Gothic A1", sans-serif;
+  color: #5B5B5A;
+}
+
+.contact-pref .pref-options {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.contact-pref label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font: 400 14px/150% "Gothic A1", sans-serif;
+  color: #5B5B5A;
+}
+
+.contact-pref .check-box {
+  border-color: #8F8F8D;
+}
+
+.contact-pref .check-box:checked::after {
+  border-color: #5B5B5A;
+}
+
+/* 약관 보기 팝업 */
+.terms-modal {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1024px;
+  z-index: 20;
+}
+
+.terms-modal.is-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.terms-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.terms-modal__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 720px;
+  max-height: 720px;
+  padding: 28px 28px 24px;
+  gap: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+}
+
+.terms-modal__title {
+  font: 800 20px/28px "Gothic A1", sans-serif;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.terms-modal__body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #f7f8fa;
+  color: #333;
+  font: 400 14px/1.6 "Gothic A1", sans-serif;
+}
+
+.terms-modal__body h1,
+.terms-modal__body h2,
+.terms-modal__body h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.terms-modal__body p {
+  margin: 0 0 10px;
+}
+
+.terms-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.terms-modal__agree {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  height: 48px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 24px;
+  background: #387BFF;
+  color: #fff;
+  font: 700 16px/20px "Gothic A1", sans-serif;
+  cursor: pointer;
+}
+
+.terms-modal__close {
+  border: 0;
+  background: transparent;
+  color: #5B5B5A;
+  font: 400 14px/20px "Gothic A1", sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+}
